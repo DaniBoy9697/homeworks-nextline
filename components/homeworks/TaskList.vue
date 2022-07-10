@@ -7,7 +7,7 @@
     >
       <div class='w-full md:w-12/12'>
         <div class='flex md:px-8 border-b pb-5'>
-          <span class='text-green-500 flex-none'>
+          <span class='text-green-500 flex-none mt-1'>
             <grid-plus-icon></grid-plus-icon>
           </span>
           <h2 class='md:px-5 flex items-center text-3xl flex-auto'>
