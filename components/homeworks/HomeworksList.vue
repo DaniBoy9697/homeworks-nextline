@@ -69,7 +69,7 @@
                   <div
                     class='text-sm leading-5 font-medium text-blue-600 truncate'
                   >
-                    {{ category.name }}
+                    {{ category.title }}
                   </div>
                   <NuxtLink
                     class='ml-2 flex-shrink-0 flex'
@@ -110,6 +110,7 @@ export default {
   },
   data() {
     return {
+      token:'e864a0c9eda63181d7d65bc73e61e3dc6b74ef9b82f7049f1fc7d9fc8f29706025bd271d1ee1822b15d654a84e1a0997b973a46f923cc9977b3fcbb064179ecd',
       categoriesList: [],
       dataReturned: {}
     }
@@ -118,19 +119,19 @@ export default {
     this.getCategoriesData()
   },
   methods: {
-    //async getCategoriesData() {
+    async getCategoriesData() {
     //  this.$vs.loading({ scale: 0.65, type: 'radius' })
-    //  try {
-    //    this.dataReturned = await this.$store.dispatch('categories/getCategories')
-    //    this.categoriesList = this.dataReturned
+      try {
+        this.dataReturned = await this.$store.dispatch('tasks/getTaskList', this.token)
+        this.categoriesList = this.dataReturned
     //    this.$vs.loading.close()
-    //  } catch (err) {
+      } catch (err) {
     //    this.$vs.loading.close()
-    //  }
-   // }
-   getCategoriesData(){
-     this.categoriesList = [{id:1, name:"categoria1"},{id:2, name:"categoria2"}]
-   },
+      }
+    }
+   // getCategoriesData(){
+    // this.categoriesList = [{id:1, name:"categoria1"},{id:2, name:"categoria2"}]
+   // },
   }
 }
 </script>
