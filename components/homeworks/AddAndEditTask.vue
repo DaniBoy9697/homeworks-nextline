@@ -238,7 +238,7 @@ export default {
         id:'',
         title: '',
         description:'',
-        is_completed:'',
+        is_completed:false,
         tags:'',
         due_date: new Date(),
         comments:'',
@@ -270,6 +270,8 @@ export default {
         this.$vs.loading({ scale: 0.65, type: 'radius' })
         this.dataReturned = await this.$store.dispatch('tasks/getTask', this.$route.params.idTarea)
         this.taskData = this.dataReturned[0]
+        // if(){} fecha or input chewck box
+        console.log(this.taskData)
       } catch (err) {
          let res = ''
          if (err.response) {
