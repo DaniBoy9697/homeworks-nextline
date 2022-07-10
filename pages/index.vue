@@ -1,13 +1,13 @@
 <template>
-  <homeworks-list />
+  <task-list />
 </template>
 
 <script>
-import HomeworksList from '~/components/homeworks/HomeworksList.vue'
+import TaskList from '~/components/homeworks/TaskList.vue'
 
 export default {
   components: {
-    HomeworksList,
+    TaskList,
   },
 }
 </script>
