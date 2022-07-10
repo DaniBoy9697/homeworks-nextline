@@ -23,6 +23,9 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/axios', mode: 'client' },
+    { src: '~/plugins/vee-validate', mode: 'client' },
+    { src: '~/plugins/vuesax', mode: 'client' },
+    { src: '~/plugins/v-calendar', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -48,5 +51,9 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    transpile: [
+      'vee-validate/dist/rules'
+    ]
+  },
 }

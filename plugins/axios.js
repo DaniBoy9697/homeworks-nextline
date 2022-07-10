@@ -1,6 +1,3 @@
-import axios from "axios";
-
-
 export default function({ app, store, $axios }) {
 
     $axios.onRequest(
@@ -15,4 +12,3 @@ export default function({ app, store, $axios }) {
       }
     )
   }
-  
