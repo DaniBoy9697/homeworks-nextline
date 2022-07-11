@@ -289,7 +289,7 @@ export default {
       }
     },
     /**
-     * Create or edit an existen category
+     * Create or edit an existen task
      * @returns {Promise<void>}
      */
     async submitTask() {
