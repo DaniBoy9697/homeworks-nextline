@@ -79,9 +79,10 @@
                       </div>
                   </div>
                   <div class="inline-flex items-center ml-5 space-x-6 lg:justify-end">
-                    <NuxtLink
+                    <button
                       class='ml-2 flex-shrink-0 flex'
-                      :to='`/taeras/${task.id}/borrar`'>
+                      @click='deleteTask(task.id)'
+                    >
                         <span
                           class='
                             px-5
@@ -97,7 +98,7 @@
                         >
                           Eliminar Tarea
                         </span>
-                    </NuxtLink>
+                    </button>
                     <NuxtLink
                       class='ml-2 flex-shrink-0 flex'
                       :to='`/tareas/${task.id}/editar`'>
@@ -129,6 +130,7 @@
 </template>
 
 <script>
+import { getErrorDetails } from '@/assets/utils/index.js'
 import GridPlusIcon from '~/components/icons/GridPlus.vue'
 
 export default {
@@ -143,18 +145,52 @@ export default {
     }
   },
   mounted() {
-    this.getCategoriesData()
+    this.getTasksData()
   },
   methods: {
-    async getCategoriesData() {
-    //  this.$vs.loading({ scale: 0.65, type: 'radius' })
+    async getTasksData() {
+      this.$vs.loading({ scale: 0.65, type: 'radius' })
       try {
         this.tasksList = await this.$store.dispatch('tasks/getTaskList', this.token)
-    //    this.$vs.loading.close()
       } catch (err) {
-    //    this.$vs.loading.close()
+        let res = ''
+         if (err.response) {
+          res = getErrorDetails(err.response.data.errors)
+        } else {
+          res = err.message
+        }
+        this.$vs.notify({
+          title: 'Ops..',
+          text: `${res}`,
+          color: 'danger',
+          position: 'top-right'
+        })
+      } finally {
+        this.$vs.loading.close()
       }
-    }
+    },
+    async deleteTask(id) {
+      try {
+        this.$vs.loading({ scale: 0.65, type: 'radius' })
+        await this.$store.dispatch('tasks/deleteTask', id)
+      } catch (err) {
+         let res = ''
+         if (err.response) {
+          res = getErrorDetails(err.response.data.errors)
+        } else {
+          res = err.message
+        }
+        this.$vs.notify({
+          title: 'Ops..',
+          text: `${res}`,
+          color: 'danger',
+          position: 'top-right'
+        })
+      } finally {
+        this.$vs.loading.close()
+        this.getTasksData()
+      }
+    },
   }
 }
 </script>

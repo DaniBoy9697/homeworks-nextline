@@ -232,6 +232,7 @@ export default {
   },
   data() {
     return {
+      taskId:'',
       showModules: false,
       dataReturned:'',
       taskData: {
@@ -270,8 +271,6 @@ export default {
         this.$vs.loading({ scale: 0.65, type: 'radius' })
         this.dataReturned = await this.$store.dispatch('tasks/getTask', this.$route.params.idTarea)
         this.taskData = this.dataReturned[0]
-        // if(){} fecha or input chewck box
-        console.log(this.taskData)
       } catch (err) {
          let res = ''
          if (err.response) {
@@ -294,16 +293,43 @@ export default {
      * @returns {Promise<void>}
      */
     async submitTask() {
-      console.log(this.taskData)
       try {
-        this.$vs.loading({ scale: 0.65, type: 'radius' })
-        const payload = {
-          data: this.taskData,
-        }
-        let resultMsg = ""
+          const formData = new URLSearchParams();
 
+          if(this.taskData.is_completed){
+            this.taskData.is_completed = 1
+          }
+          else{
+            this.taskData.is_completed = 0
+          }
+          if(this.taskData.due_date != null){
+            const date = this.taskData.due_date
+            const yyyy = date.getFullYear();
+            let mm = date.getMonth() + 1
+            let dd = date.getDate()
+
+            if (dd < 10) dd = '0' + dd;
+            if (mm < 10) mm = '0' + mm;
+
+            const formattedDate = yyyy + '-' + mm + '-' + dd;
+            formData.append('due_date', formattedDate)
+          }
+
+          const token = 'e864a0c9eda63181d7d65bc73e61e3dc6b74ef9b82f7049f1fc7d9fc8f29706025bd271d1ee1822b15d654a84e1a0997b973a46f923cc9977b3fcbb064179ecd'
+          formData.append('token', token)
+          formData.append('title', this.taskData.title)
+          formData.append('description', this.taskData.description)
+          formData.append('is_completed', this.taskData.is_completed)
+          formData.append('tags', this.taskData.tags)
+          formData.append('comments', this.taskData.comments)
+
+          const payload = {
+            data: formData,
+            id: this.$route.params.idTarea
+          }
+        this.$vs.loading({ scale: 0.65, type: 'radius' })
+        let resultMsg = ""
         if (this.type === TYPE_VIEW.EDIT) {
-          payload.id = this.$route.params.idTask
           resultMsg = "Tarea actualizada"
           await this.$store.dispatch('tasks/updateTask', payload)
         } else {

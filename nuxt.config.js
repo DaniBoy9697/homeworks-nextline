@@ -42,14 +42,19 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://ecsdevapi.nextline.mx/vdev/tasks-challenge/'
+    proxy: true
+  //  baseURL: 'https://ecsdevapi.nextline.mx/vdev/tasks-challenge/',
   },
 
+  proxy:{
+    '/api/': { target: 'https://ecsdevapi.nextline.mx/vdev/tasks-challenge/', pathRewrite: {'^/api/': ''}, changeOrigin: true }
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: [
