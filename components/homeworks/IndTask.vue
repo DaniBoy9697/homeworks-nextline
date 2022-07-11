@@ -42,10 +42,11 @@
     </div>
     <div class='max-w-3xl mx-auto  lex items-center justify-center px-12 py-5'>
       <div class='mx-auto w-full'>
-          <div class='mb-5'>
+
+          <div class='mb-5 border-b'>
             <label
               for='name'
-              class='mb-3 block text-base font-medium text-[#07074D]'
+              class='mb-3 block font-bold text-lg'
             >
               Titulo
             </label>
@@ -56,9 +57,9 @@
               {{ taskData.title }}
             </label>
           </div>
-          <div class="mb-5">
+          <div class="mb-5 border-b">
             <label
-              class="mb-3 block text-base font-medium text-[#07074D]"
+              class="mb-3 block font-bold text-lg"
             >
               Descripción
             </label>
@@ -68,9 +69,9 @@
               {{ taskData.description }}
             </label>
           </div>
-          <div class="mb-5">
+          <div class="mb-5 border-b">
             <label
-              class="mb-3 block text-base font-medium text-[#07074D]"
+              class="mb-3 block font-bold text-lg"
             >
               Comentarios
             </label>
@@ -80,10 +81,10 @@
                 {{taskData.comments}}
             </label>
           </div>
-          <div class="mb-5">
+          <div class="mb-5 border-b">
             <label
               for="name"
-              class="mb-3 block text-base font-medium text-[#07074D]"
+              class="mb-3 block font-bold text-lg"
             >
               Tags
             </label>
@@ -94,15 +95,21 @@
               {{taskData.tags}}
             </label>
           </div>
-          <div class="mb-5">
+          <div class="mb-5 border-b">
             <div class="gap-x-16 mb-4 md:flex justify-between">
               <div class="w-1/2 mb-4 md:mr-2 md:mb-0">
-                <label class="mb-3 block text-base font-medium text-[#07074D]">
+                <label class="mb-3 block font-bold text-lg">
                   Estatus
+                </label>
+                <label
+                  for="name"
+                  class="mb-3 block text-base font-medium text-[#07074D]"
+                >
+                  {{taskData.is_completed}}
                 </label>
               </div>
               <div class="w-1/2 md:ml-2">
-                <label class="mb-3 block text-base text center font-medium text-[#07074D]">
+                <label class="mb-3 block font-bold text-lg">
                   Fecha
                 </label>
                   <template>
@@ -168,6 +175,12 @@ export default {
         this.$vs.loading({ scale: 0.65, type: 'radius' })
         this.dataReturned = await this.$store.dispatch('tasks/getTask', this.$route.params.idTarea)
         this.taskData = this.dataReturned[0]
+        if(this.taskData.is_completed === 1 ){
+          this.taskData.is_completed = "Completada"
+        }
+        else{
+          this.taskData.is_completed = "No Completada"
+        }
       } catch (err) {
          let res = ''
          if (err.response) {
