@@ -48,13 +48,13 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    proxy: true
-  //  baseURL: 'https://ecsdevapi.nextline.mx/vdev/tasks-challenge/',
+  //  proxy: true
+    baseURL: 'https://ecsdevapi.nextline.mx/vdev/tasks-challenge/',
   },
 
-  proxy:{
-    '/api/': { target: 'https://ecsdevapi.nextline.mx/vdev/tasks-challenge/', pathRewrite: {'^/api/': ''}, changeOrigin: true }
-  },
+  // proxy:{
+  //  '/api/': { target: 'https://ecsdevapi.nextline.mx/vdev/tasks-challenge/', pathRewrite: {'^/api/': ''}, changeOrigin: true }
+ // },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     transpile: [

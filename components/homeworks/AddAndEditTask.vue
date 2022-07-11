@@ -147,7 +147,7 @@
                     class="flex items-center cursor-pointer"
                   >
                     <div class="relative">
-                      <input id="toogleA" type="checkbox" class="sr-only" v-model="taskData.is_completed"/>
+                      <input id="toogleA" v-model="taskData.is_completed" type="checkbox" class="sr-only"/>
                       <div class="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
                       <div class="dot absolute w-6 h-6 bg-gray-100 rounded-full shadow -left-1 -top-1 transition"></div>
                     </div>
@@ -163,8 +163,8 @@
                 <label class="mb-3 block text-base text center font-medium text-[#07074D]">
                   Fecha
                 </label>
-                <v-date-picker class="inline-block h-full" v-model="taskData.due_date">
-                  <template v-slot="{ inputValue, togglePopover }">
+                <v-date-picker v-model="taskData.due_date" class="inline-block h-full">
+                  <template #default="{ inputValue, togglePopover }">
                     <div class="flex items-center">
                       <button
                         class="p-2 bg-green-100 border border-green-200 hover:bg-green-200 text-green-600 rounded-l focus:bg-green-500 focus:text-white focus:border-green-500 focus:outline-none"
